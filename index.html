@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bro Exam</title>
-    <!-- Memuat Tailwind CSS dan Font Script untuk judul -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Broexam</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Memuat font skrip untuk judul 'Broexam' agar mirip screenshot */
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
@@ -20,10 +20,13 @@
         
         /* Style Judul Broexam */
         #appTitle {
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Dancing Script', cursive; /* Menggunakan font Dancing Script */
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-            /* Memindahkan judul ke kiri sepenuhnya */
+            font-weight: 700; /* Tebalkan untuk lebih mirip */
+            font-size: 2.25rem; /* Ukuran font lebih besar */
+            line-height: 2.5rem; /* Tinggi baris */
             margin-right: auto; 
+            margin-left: -0.5rem; /* Geser sedikit ke kiri untuk estetika */
         }
 
         /* Style untuk iframe yang memenuhi seluruh area di bawah header */
@@ -68,7 +71,7 @@
 <body class="h-screen w-screen overflow-hidden">
 
     <!-- Header Status Bar - Warna Biru Tua (#3949AB) -->
-    <header id="appHeader" class="flex justify-between items-center h-12 px-4 text-white shadow-xl relative z-10" style="background-color: #3949AB;">
+    <header id="appHeader" class="flex items-center h-12 px-4 text-white shadow-xl relative z-10" style="background-color: #3949AB;">
         
         <!-- Area rahasia untuk keluar/masuk mode kunci (Ketuk 5x) -->
         <div id="secretZone" title="Ketuk 5x untuk Kunci/Buka Kunci"></div>
@@ -78,25 +81,28 @@
             Broexam
         </h1>
 
-        <!-- Status Baterai dan Jam (Tengah) -->
-        <div class="flex items-center space-x-3 text-lg font-semibold">
+        <!-- Grup Status (Baterai & Jam) - Ditempatkan paling kanan dengan ml-auto -->
+        <div class="flex items-center space-x-3 text-lg font-semibold ml-auto">
+            
+            <!-- Persentase Baterai (TANPA IKON) -->
             <span id="batteryStatus" class="flex items-center">
-                <!-- Ikon Baterai (Placeholder SVG sederhana) -->
-                <svg id="batteryIcon" class="w-6 h-6 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 4h1a2 2 0 012 2v8a2 2 0 01-2 2h-1v-2h1V6h-1a1 1 0 00-1-1H7a1 1 0 00-1 1v8H5v-2H6a2 2 0 012 2h1a1 1 0 011 1v1h2v-1a1 1 0 011-1h1a2 2 0 01-2-2V6a2 2 0 012-2zM8 6h4v8H8V6z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                </svg>
-                <span id="batteryLevel">84%</span>
+                <span id="batteryLevel">77%</span>
             </span>
-            <!-- Ikon Jam -->
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"></path></svg>
-            <span id="currentTime">16:48</span>
+            
+            <!-- Ikon Jam (Diambil dari referensi terbaru) -->
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67zM17.5 4L22 7l-1.5 1L16 5.5l1.5-1zM6.5 4L2 7l1.5 1L8 5.5l-1.5-1z"/>
+            </svg>
+            <span id="currentTime">17:33</span>
         </div>
 
-        <!-- Kontrol (Kanan: Refresh & Tutup) -->
-        <div class="flex items-center space-x-4 ml-auto">
-            <!-- Refresh Icon -->
+        <!-- Kontrol (Refresh & Tutup) - Ditempatkan setelah grup status -->
+        <div class="flex items-center space-x-2"> 
+            <!-- Refresh Icon (Posisi di tengah antara Jam dan X) -->
             <button id="refreshBtn" class="p-1 focus:outline-none hover:text-gray-300 transition duration-150" title="Muat Ulang Halaman">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.975 8.975 0 0120 13a9 9 0 11-8-9v5H4"></path></svg>
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.76 0 3.3.73 4.46 1.99L13 11h7V4l-2.35 2.35z"/>
+                </svg>
             </button>
             <!-- Close Icon -->
             <button id="closeBtn" class="p-1 focus:outline-none hover:text-red-300 transition duration-150" title="Keluar/Buka Kunci">
@@ -122,50 +128,46 @@
         const refreshBtn = document.getElementById('refreshBtn');
         const closeBtn = document.getElementById('closeBtn');
         const progressBar = document.getElementById('progressBar');
+        // const batteryIcon = document.getElementById('batteryIcon'); // Dihapus
 
         let tapCount = 0;
         let lastTapTime = 0;
-        const TAP_THRESHOLD = 500; // 500ms antar ketukan
-        const REQUIRED_TAPS = 5; // Jumlah ketukan rahasia
+        const TAP_THRESHOLD = 500; 
+        const REQUIRED_TAPS = 5; 
 
         // ===================================
         // Logika Progress Bar
         // ===================================
 
-        // Fungsi untuk memulai animasi progress bar
         function startLoading() {
-            progressBar.style.width = '10%'; // Mulai cepat
+            progressBar.style.width = '10%';
             progressBar.style.opacity = '1';
             
-            // Animasi untuk mencapai 80% (simulasi loading)
             let currentWidth = 10;
             const interval = setInterval(() => {
-                currentWidth += 5; // Peningkatan simulasi
+                currentWidth += 5;
                 if (currentWidth >= 80) {
                     clearInterval(interval);
                     currentWidth = 80;
                 }
                 progressBar.style.width = `${currentWidth}%`;
-            }, 300); // Bergerak setiap 300ms
+            }, 300);
             
-            contentFrame.loadingInterval = interval; // Simpan interval untuk dihentikan
+            contentFrame.loadingInterval = interval;
         }
 
-        // Fungsi untuk menyelesaikan/menyembunyikan progress bar
         function finishLoading() {
             if (contentFrame.loadingInterval) {
                 clearInterval(contentFrame.loadingInterval);
             }
             
-            progressBar.style.width = '100%'; // Selesaikan
-            // Sembunyikan setelah transisi selesai
+            progressBar.style.width = '100%';
             setTimeout(() => {
                 progressBar.style.opacity = '0';
                 progressBar.style.width = '0%';
-            }, 500); // 500ms setelah selesai
+            }, 500);
         }
         
-        // Listener saat iframe selesai memuat
         contentFrame.addEventListener('load', () => {
              finishLoading();
         });
@@ -186,7 +188,6 @@
             } else if (element.msRequestFullscreen) {
                 element.msRequestFullscreen();
             }
-            // Sembunyikan header saat terkunci
             appHeader.style.display = 'none';
         }
 
@@ -198,11 +199,9 @@
             } else if (document.msExitFullscreen) {
                 document.msExitFullscreen();
             }
-            // Tampilkan kembali header
             appHeader.style.display = 'flex';
         }
         
-        // Listener untuk Area Rahasia (Secret Zone)
         secretZone.addEventListener('click', () => {
             const now = Date.now();
             
@@ -224,7 +223,6 @@
             }
         });
 
-        // Listener untuk Tombol Tutup (Sama dengan toggle lock)
         closeBtn.addEventListener('click', () => {
             if (isLocked()) {
                 unlockScreen();
@@ -233,10 +231,8 @@
             }
         });
 
-        // Listener untuk Tombol Refresh
         refreshBtn.addEventListener('click', () => {
-            startLoading(); // Mulai simulasi loading
-            // Memuat ulang halaman di dalam iframe
+            startLoading();
             contentFrame.contentWindow.location.reload(); 
         });
 
@@ -254,11 +250,12 @@
                 updateBatteryStatus(battery);
                 battery.addEventListener('levelchange', () => updateBatteryStatus(battery));
             }).catch(e => {
-                batteryLevelSpan.textContent = 'Baterai';
+                batteryLevelSpan.textContent = '77%'; // Fallback jika tidak bisa mendapatkan status baterai
             });
         } else {
-            batteryLevelSpan.textContent = '84%';
+            batteryLevelSpan.textContent = '77%'; // Default
         }
+
 
         function updateTime() {
             const now = new Date();
@@ -280,10 +277,8 @@
         });
 
         window.onload = function() {
-            // Sembunyikan progress bar di awal (karena iframe mungkin sudah selesai loading)
             progressBar.style.opacity = '0'; 
             
-            // Penyesuaian tinggi iframe
             const adjustIframeHeight = () => {
                 contentFrame.style.height = `calc(100vh - ${appHeader.offsetHeight}px)`;
             }
